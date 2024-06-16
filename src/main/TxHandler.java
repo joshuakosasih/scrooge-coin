@@ -68,6 +68,8 @@ public class TxHandler {
             if (isValidTx(tx)) {
                 for (Transaction.Input in: tx.getInputs())
                     uPool.removeUTXO(new UTXO(in.prevTxHash, in.outputIndex));
+                for (int i = 0; i < tx.numOutputs(); i++)
+                    uPool.addUTXO(new UTXO(tx.getHash(), i), tx.getOutput(i));
                 txs.add(tx);
             }
         }
