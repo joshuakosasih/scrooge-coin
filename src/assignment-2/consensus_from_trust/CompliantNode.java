@@ -1,6 +1,8 @@
+package consensus_from_trust;
+
 import java.util.Set;
 
-/* CompliantNode refers to a node that follows the rules (not malicious)*/
+/* consensus_from_trust.CompliantNode refers to a node that follows the rules (not malicious)*/
 public class CompliantNode implements Node {
 
     public CompliantNode(double p_graph, double p_malicious, double p_txDistribution, int numRounds) {
@@ -17,6 +19,7 @@ public class CompliantNode implements Node {
 
     public Set<Transaction> sendToFollowers() {
         // IMPLEMENT THIS
+        return null;
     }
 
     public void receiveFromFollowees(Set<Candidate> candidates) {

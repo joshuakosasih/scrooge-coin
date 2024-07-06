@@ -1,3 +1,6 @@
+package consensus_from_trust;
+
+
 final public class Transaction {
     final int id;
 
@@ -6,7 +9,7 @@ final public class Transaction {
     }
 
     @Override
-    /**  @return true if this Transaction has the same id as {@code obj} */
+    /**  @return true if this scrooge_coin.Transaction has the same id as {@code obj} */
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

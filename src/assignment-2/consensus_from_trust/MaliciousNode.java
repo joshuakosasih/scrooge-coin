@@ -1,3 +1,5 @@
+package consensus_from_trust;
+
 import java.util.Set;
 import java.util.HashSet;
 

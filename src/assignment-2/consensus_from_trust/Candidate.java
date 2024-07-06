@@ -1,3 +1,5 @@
+package consensus_from_trust;
+
 public class Candidate {
 	Transaction tx;
 	int sender;

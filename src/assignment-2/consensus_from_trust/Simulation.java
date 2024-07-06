@@ -1,5 +1,5 @@
-// Example of a Simulation. This test runs the nodes on a random graph.
-// At the end, it will print out the Transaction ids which each node
+package consensus_from_trust;// Example of a consensus_from_trust.Simulation. This test runs the nodes on a random graph.
+// At the end, it will print out the scrooge_coin.Transaction ids which each node
 // believes consensus has been reached upon. You can use this simulation to
 // test your nodes. You will want to try creating some deviant nodes and
 // mixing them in the network to fully test.
@@ -15,7 +15,7 @@ public class Simulation {
 
       // There are four required command line arguments: p_graph (.1, .2, .3),
       // p_malicious (.15, .30, .45), p_txDistribution (.01, .05, .10), 
-      // and numRounds (10, 20). You should try to test your CompliantNode
+      // and numRounds (10, 20). You should try to test your consensus_from_trust.CompliantNode
       // code for all 3x3x3x2 = 54 combinations.
 
       int numNodes = 100;
@@ -29,8 +29,8 @@ public class Simulation {
       for (int i = 0; i < numNodes; i++) {
          if(Math.random() < p_malicious)
             // When you are ready to try testing with malicious nodes, replace the
-            // instantiation below with an instantiation of a MaliciousNode
-            nodes[i] = new MalDoNothing(p_graph, p_malicious, p_txDistribution, numRounds);
+            // instantiation below with an instantiation of a consensus_from_trust.MaliciousNode
+            nodes[i] = new MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds);
          else
             nodes[i] = new CompliantNode(p_graph, p_malicious, p_txDistribution, numRounds);
       }
@@ -63,7 +63,7 @@ public class Simulation {
 
       // distribute the 500 Transactions throughout the nodes, to initialize
       // the starting state of Transactions each node has heard. The distribution
-      // is random with probability p_txDistribution for each Transaction-Node pair.
+      // is random with probability p_txDistribution for each scrooge_coin.Transaction-consensus_from_trust.Node pair.
       for (int i = 0; i < numNodes; i++) {
          HashSet<Transaction> pendingTransactions = new HashSet<Transaction>();
          for(Integer txID : validTxIds) {
@@ -114,7 +114,7 @@ public class Simulation {
       // print results
       for (int i = 0; i < numNodes; i++) {
          Set<Transaction> transactions = nodes[i].sendToFollowers();
-         System.out.println("Transaction ids that Node " + i + " believes consensus on:");
+         System.out.println("scrooge_coin.Transaction ids that consensus_from_trust.Node " + i + " believes consensus on:");
          for (Transaction tx : transactions)
             System.out.println(tx.id);
          System.out.println();
