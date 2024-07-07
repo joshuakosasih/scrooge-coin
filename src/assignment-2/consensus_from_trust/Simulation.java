@@ -115,11 +115,10 @@ public class Simulation {
       // print results
       for (int i = 0; i < numNodes; i++) {
          Set<Transaction> transactions = nodes[i].sendToFollowers();
-         System.out.println("Transaction ids that Node " + i + " believes consensus on:");
+         int transactionIdSum = 0;
          for (Transaction tx : transactions)
-            System.out.println(tx.id);
-         System.out.println();
-         System.out.println();
+            transactionIdSum += tx.id;
+         System.out.println("Node " + i + " believes consensus on " + transactions.size() + " transactions with id sum of:" + transactionIdSum);
       }
 
    }
