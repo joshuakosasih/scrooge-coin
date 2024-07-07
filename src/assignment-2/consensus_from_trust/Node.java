@@ -4,9 +4,9 @@ import java.util.Set;
 
 public interface Node {
 
-    // NOTE: consensus_from_trust.Node is an interface and does not have a constructor.
-    // However, your consensus_from_trust.CompliantNode.java class requires a 4 argument
-    // constructor as defined in consensus_from_trust.Simulation.java
+    // NOTE: Node is an interface and does not have a constructor.
+    // However, your CompliantNode.java class requires a 4 argument
+    // constructor as defined in Simulation.java
 
     /** {@code followees[i]} is true if and only if this node follows node {@code i} */
     void setFollowees(boolean[] followees);

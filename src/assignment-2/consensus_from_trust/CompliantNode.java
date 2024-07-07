@@ -1,9 +1,13 @@
 package consensus_from_trust;
 
+import java.util.ArrayList;
 import java.util.Set;
 
-/* consensus_from_trust.CompliantNode refers to a node that follows the rules (not malicious)*/
+/* CompliantNode refers to a node that follows the rules (not malicious)*/
 public class CompliantNode implements Node {
+
+    private Set<Transaction> transactions;
+    private int roundNum = 0;
 
     public CompliantNode(double p_graph, double p_malicious, double p_txDistribution, int numRounds) {
         // IMPLEMENT THIS
@@ -14,15 +18,24 @@ public class CompliantNode implements Node {
     }
 
     public void setPendingTransaction(Set<Transaction> pendingTransactions) {
-        // IMPLEMENT THIS
+        transactions = pendingTransactions;
+        pendingTransactions.clear();
     }
 
     public Set<Transaction> sendToFollowers() {
-        // IMPLEMENT THIS
-        return null;
+        return transactions;
     }
 
     public void receiveFromFollowees(Set<Candidate> candidates) {
-        // IMPLEMENT THIS
+//        roundNum++;
+//        if (roundNum >= 2) {
+//            candidates.clear();
+//            return;
+//        }
+
+        for (Candidate candidate : candidates) {
+            transactions.add(candidate.tx);
+        }
+        candidates.clear();
     }
 }
