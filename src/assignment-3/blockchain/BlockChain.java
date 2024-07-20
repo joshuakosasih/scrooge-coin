@@ -2,6 +2,8 @@
 // You should not have all the blocks added to the block chain in memory 
 // as it would cause a memory overflow.
 
+package blockchain;
+
 public class BlockChain {
     public static final int CUT_OFF_AGE = 10;
 
