@@ -1,7 +1,6 @@
 // Block Chain should maintain only limited block nodes to satisfy the functions
 // You should not have all the blocks added to the block chain in memory 
 // as it would cause a memory overflow.
-
 package blockchain;
 
 import java.nio.ByteBuffer;
@@ -55,11 +54,21 @@ public class BlockChain {
         return transactionPool;
     }
 
-    /**  */
+    /** process the block by checking its validity and return the new UTXOPool
+     * @return null if the block is not valid
+     */
     private UTXOPool processBlock(Block block, UTXOPool utxoPool) {
         TxHandler txHandler = new TxHandler(utxoPool);
-        txHandler.handleTxs(block.getTransactions().toArray(new Transaction[0]));
-        return txHandler.getUTXOPool();
+        Transaction[] txs = txHandler.handleTxs(block.getTransactions().toArray(new Transaction[0]));
+//        System.out.printf("%d %d %d\n", block.getTransactions().size(), txs.length, txHandler.getUTXOPool().getAllUTXO().size());
+
+        if (txs.length < block.getTransactions().size())
+            return null;
+
+       UTXOPool resultUTXO = txHandler.getUTXOPool();
+       resultUTXO.addUTXO(new UTXO(block.getCoinbase().getHash(), 0), block.getCoinbase().getOutput(0));
+//       System.out.printf("%d %d %d\n", block.getTransactions().size(), txs.length, resultUTXO.getAllUTXO().size());
+       return resultUTXO;
     }
 
     /**
@@ -100,6 +109,10 @@ public class BlockChain {
 
         // TxHandler validation
         UTXOPool newUPool = processBlock(block, prevBlockInfo.utxoPool);
+        if (newUPool == null)
+            return false;
+
+        // block is valid, add the block to the chain
         BlockInfo newBlockInfo = new BlockInfo(newHeight, newUPool);
         blockMap.put(ByteBuffer.wrap(block.getHash()), newBlockInfo);
 
@@ -109,7 +122,7 @@ public class BlockChain {
             maxHeightBlockInfo = newBlockInfo;
         }
 
-        // block is valid
+        // remove transactions from pool
         updateTransactionPool(block);
         return true;
     }
